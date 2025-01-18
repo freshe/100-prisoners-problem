@@ -7,8 +7,6 @@
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::io::{self, Write};
-//use std::thread;
-//use std::time::Duration;
 
 const RUNS: usize = 100000;
 
@@ -19,8 +17,9 @@ fn main() {
     let mut success_count = 0;
     let mut fail_count = 0;
 
+    cls();
     println!("100 Prisoners Problem / Riddle");
-    println!("Running...");
+    println!("Running {} times...", RUNS);
 
     for _i in 0..RUNS {
         let run_success = play(&mut prisoners, &mut boxes);
@@ -30,19 +29,17 @@ fn main() {
         } else {
             fail_count += 1;
         }
-        //thread::sleep(Duration::from_millis(5));
     }
 
-    cls();
     println!("Successful runs: {} / Failed runs: {}", success_count, fail_count);
 }
 
 fn play(prisoners: &mut [i32], boxes: &mut [i32]) -> bool {
     //init
-    for i in 0..100 {
-        let number : i32 = i;
-        prisoners[i as usize] = number + 1;
-        boxes[i as usize] = number + 1;
+    for i in 0..prisoners.len() {
+        let number : i32 = i as i32;
+        prisoners[i] = number + 1;
+        boxes[i] = number + 1;
     }
 
     //arrange

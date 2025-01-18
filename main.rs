@@ -72,12 +72,10 @@ fn play(prisoners: &mut [i32], boxes: &mut [i32]) -> bool {
         let prisoner_number = prisoners[i];
         let mut box_index = prisoner_number as usize - 1;
         let mut count = 0;
-        let mut failed = false;
 
         loop {
             if count >= 50 {
-                failed = true;
-                break;
+                return false;
             }
 
             count += 1;
@@ -88,10 +86,6 @@ fn play(prisoners: &mut [i32], boxes: &mut [i32]) -> bool {
             }
 
             box_index = next_number as usize - 1;
-        }
-
-        if failed {
-            return false;
         }
     }
 

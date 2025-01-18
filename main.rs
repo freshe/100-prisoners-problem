@@ -7,21 +7,43 @@
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::io::{self, Write};
+use std::env;
 
-const RUNS: usize = 100000;
+const DEFAULT_RUNS: usize = 100000;
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
     let mut prisoners: [i32; 100] = [0; 100];
     let mut boxes: [i32; 100] = [0; 100];
 
     let mut success_count = 0;
     let mut fail_count = 0;
+    let mut number_of_runs = DEFAULT_RUNS;
+
+    if args.len() > 1 {
+        let int_arg: usize = match args[1].parse() {
+            Ok(number) => number,
+            Err(_) => {
+                println!("Invalid argument {}. Expected a number", args[1]);
+                std::process::exit(1);
+            }
+        };
+
+        if int_arg < 1 {
+            println!("Invalid argument. Expected a number greater than 0");
+            std::process::exit(1);
+        }
+
+        number_of_runs = int_arg;
+    }
 
     cls();
     println!("100 Prisoners Problem / Riddle");
-    println!("Running {} times...", RUNS);
+    println!("https://github.com/freshe");
+    println!("");
+    println!("Running {} times...", number_of_runs);
 
-    for _i in 0..RUNS {
+    for _i in 0..number_of_runs {
         let run_success = play(&mut prisoners, &mut boxes);
 
         if run_success {

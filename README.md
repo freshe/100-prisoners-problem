@@ -1,4 +1,4 @@
-# The 100 Prisoners Problem / Riddle
+# 100 Prisoners Problem / Riddle
 Just learned about this neat little math / statistics curiosity.  
 Made a small rust loop to test it.  
   
